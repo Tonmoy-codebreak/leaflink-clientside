@@ -6,11 +6,13 @@ import LoginPage from "../Pages/LoginPage";
 import SignUpPage from "../Pages/SignUpPage";
 import MyTipsPage from "../Pages/MyTipsPage";
 import ShareTips from "../Pages/ShareTips";
+import ErrorPage from "../Pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement:<ErrorPage></ErrorPage>,
     children: [
       { path: "/", element: <HomePage></HomePage> },
       {
@@ -22,8 +24,8 @@ const router = createBrowserRouter([
         element:<LoginPage></LoginPage>,
       },
       {
-        path: "/signup",
-        element:<SignUpPage></SignUpPage>
+        path: "/register",
+        element:<SignUpPage></SignUpPage>,
       },
 
     //   Private Routs
