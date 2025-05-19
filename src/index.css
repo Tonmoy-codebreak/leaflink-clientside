@@ -1,1 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
 @import "tailwindcss";
+
+/* Background and Text color section */
+.primary-bg {
+  background-color: #2e7d32;
+}
+
+.primary-text {
+  color: #2e7d32;
+}
+
+/* font section */
+
+.font-logo {
+  font-family: "MuseoModerno", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-read {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
