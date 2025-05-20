@@ -7,12 +7,14 @@ import SignUpPage from "../Pages/SignUpPage";
 import MyTipsPage from "../Pages/MyTipsPage";
 import ShareTips from "../Pages/ShareTips";
 import ErrorPage from "../Pages/ErrorPage";
+import PrivateRoute from "./PrivateRoutes";
+import BrowseTips from "../Pages/BrowseTips";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    errorElement:<ErrorPage></ErrorPage>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       { path: "/", element: <HomePage></HomePage> },
       {
@@ -21,24 +23,34 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element:<LoginPage></LoginPage>,
+        element: <LoginPage></LoginPage>,
       },
       {
         path: "/register",
-        element:<SignUpPage></SignUpPage>,
+        element: <SignUpPage></SignUpPage>,
+      },
+      {
+        path: "/browsetips",
+        element: <BrowseTips></BrowseTips>,
       },
 
-    //   Private Routs
-
+      //   Private Routs
+      {
+        path: "/auth/sharetips",
+        element: (
+          <PrivateRoute>
+            <ShareTips />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "/auth/mytips",
-        element:<MyTipsPage></MyTipsPage>
+        element: (
+          <PrivateRoute>
+            <MyTipsPage />
+          </PrivateRoute>
+        ),
       },
-    {
-        path: "/auth/sharetips",
-        element:<ShareTips></ShareTips>
-      },
-   
     ],
   },
 ]);

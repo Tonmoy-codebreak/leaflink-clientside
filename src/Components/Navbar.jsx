@@ -22,8 +22,9 @@ const Navbar = () => {
   const NavOptions = (
     <>
       <li><NavLink to={"/"}>Home</NavLink></li>
-      <li><NavLink to={"/auth/sharetips"}>Share a Garden Tip</NavLink></li>
       <li><NavLink to={"/explore"}>Explore Gardeners</NavLink></li>
+      <li><NavLink to={"/browsetips"}>Browse Tips</NavLink></li>
+      <li><NavLink to={"/auth/sharetips"}>Share a Garden Tip</NavLink></li>
       <li><NavLink to={"/auth/mytips"}>My Tips</NavLink></li>
     </>
   );
@@ -59,7 +60,7 @@ const Navbar = () => {
         <div className="navbar-end">
           {/* ============================================================================================== */}
           {user ? (
-            <div className="dropdown dropdown-bottom">
+            <div className="dropdown dropdown-left">
               <div tabIndex={0} role="button" className="rounded-full">
                 <div className="relative w-10 h-10">
                   {!imageLoaded && (

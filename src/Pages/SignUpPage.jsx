@@ -28,7 +28,7 @@ const SignUpPage = () => {
           draggable: true,
         });
 
-        navigate(`${location.state ? location.state : "/"}`);
+        navigate(location.state?.from?.pathname || "/");
       })
       .catch((error) => {
         alert(error.message);

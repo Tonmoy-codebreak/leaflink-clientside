@@ -24,7 +24,7 @@ const LoginPage = () => {
           draggable: true,
         });
 
-        navigate(`${location.state ? location.state : "/"}`);
+        navigate(location.state?.from?.pathname || "/");
       })
       .catch((error) => {
         alert(error.message);
@@ -51,7 +51,7 @@ const LoginPage = () => {
           icon: "success",
           draggable: true,
         });
-        navigate(`${location.state ? location.state : "/"}`);
+       navigate(location.state?.from?.pathname || "/");
       })
       .catch((error) => {
         const errorCode = error.code;
