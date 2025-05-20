@@ -11,6 +11,37 @@ html, body {
   overflow: hidden;
 }
 
+/* Navlink active route highlight */
+.active {
+  position: relative;
+  color: yellow; /* Tailwind's green-600 */
+  font-weight: 600;
+  transition: color 0.3s ease-in-out;
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #16a34a, #22c55e); /* green shades */
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+  animation: underlineGlow 1s ease-in-out forwards;
+}
+
+@keyframes underlineGlow {
+  0% {
+    width: 0%;
+    opacity: 0;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
+}
 
 /* Background and Text color section */
 .primary-bg {
