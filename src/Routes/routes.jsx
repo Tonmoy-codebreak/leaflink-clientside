@@ -21,6 +21,7 @@ const router = createBrowserRouter([
         element: <HomePage></HomePage> },
       {
         path: "/explore",
+        loader: ()=> fetch('http://localhost:3000/allusers'),
         element: <ExplorePage></ExplorePage>,
       },
       {

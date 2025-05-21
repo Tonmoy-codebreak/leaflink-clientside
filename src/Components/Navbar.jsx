@@ -19,15 +19,20 @@ const Navbar = () => {
       });
   };
 
-  const NavOptions = (
-    <>
-      <li><NavLink to={"/"}>Home</NavLink></li>
-      <li><NavLink to={"/explore"}>Explore Gardeners</NavLink></li>
-      <li><NavLink to={"/browsetips"}>Browse Tips</NavLink></li>
-      <li><NavLink to={"/auth/sharetips"}>Share a Garden Tip</NavLink></li>
-      <li><NavLink to={"/auth/mytips"}>My Tips</NavLink></li>
-    </>
-  );
+const NavOptions = (
+  <>
+    <li><NavLink to={"/"}>Home</NavLink></li>
+    <li><NavLink to={"/explore"}>Explore Gardeners</NavLink></li>
+    <li><NavLink to={"/browsetips"}>Browse Tips</NavLink></li>
+
+    {user && (
+      <>
+        <li><NavLink to={"/auth/sharetips"}>Share a Garden Tip</NavLink></li>
+        <li><NavLink to={"/auth/mytips"}>My Tips</NavLink></li>
+      </>
+    )}
+  </>
+);
 
   return (
     <div className="primary-bg">
