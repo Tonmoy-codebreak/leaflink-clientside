@@ -19,7 +19,7 @@ const ExplorePage = () => {
         {users?.map((user, idx) => (
           <div
             key={idx}
-            className="bg-white rounded-2xl shadow-lg overflow-hidden p-6 text-center rounded-4xl"
+            className="bg-white  shadow-lg overflow-hidden p-6 text-center rounded-4xl"
           >
             {/* Profile Image */}
             <div className="flex justify-center mb-4">

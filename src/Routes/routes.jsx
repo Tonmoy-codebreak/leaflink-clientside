@@ -9,6 +9,7 @@ import ShareTips from "../Pages/ShareTips";
 import ErrorPage from "../Pages/ErrorPage";
 import PrivateRoute from "./PrivateRoutes";
 import BrowseTips from "../Pages/BrowseTips";
+import TipsDetailPage from "../Pages/TipsDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/browsetips",
+        loader: ()=> fetch('http://localhost:3000/publictips'),
         element: <BrowseTips></BrowseTips>,
       },
 
@@ -51,6 +53,15 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyTipsPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/auth/tipsDetails/:id",
+        errorElement: <ErrorPage></ErrorPage>,
+        element: (
+          <PrivateRoute>
+            <TipsDetailPage/>
           </PrivateRoute>
         ),
       },
