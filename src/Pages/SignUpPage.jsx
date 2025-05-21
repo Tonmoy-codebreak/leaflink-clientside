@@ -76,10 +76,10 @@ const SignUpPage = () => {
           };
           setUser(updatedUser);
           Swal.fire({
-            title: "Drag me!",
-            icon: "Register Success",
-            draggable: true,
-          });
+          title: "Successfully Logged In",
+          icon: "success",
+          draggable: true,
+        });
           navigate(`${location.state ? location.state : "/"}`);
         });
       })
