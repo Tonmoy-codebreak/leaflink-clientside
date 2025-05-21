@@ -16,7 +16,9 @@ const router = createBrowserRouter([
     element: <MainLayout></MainLayout>,
     errorElement: <ErrorPage></ErrorPage>,
     children: [
-      { path: "/", element: <HomePage></HomePage> },
+      { path: "/",
+        loader: ()=> fetch('http://localhost:3000/activeusers'),
+        element: <HomePage></HomePage> },
       {
         path: "/explore",
         element: <ExplorePage></ExplorePage>,
