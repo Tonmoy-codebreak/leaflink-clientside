@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 const MyTipsPage = () => {
 
      useEffect(() => {
-            document.title = "My Tips"; // ✅ My custom title 
+            document.title = "My Tips";
         }, []);
     
     return (

@@ -7,7 +7,7 @@ import FinalSection from '../Components/FinalSection';
 
 const HomePage = () => {
      useEffect(() => {
-            document.title = "Home"; // ✅ My custom title 
+            document.title = "Home"; 
         }, []);
     
     return (
