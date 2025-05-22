@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaEye, FaFolder, FaStar } from 'react-icons/fa';
 import { RiPlantFill } from 'react-icons/ri';
 import { NavLink } from 'react-router';
+import { Typewriter } from 'react-simple-typewriter';
 
 const TopTips = () => {
   const [tips, setTips] = useState([]);
@@ -15,7 +16,31 @@ const TopTips = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-6 my-36">
-      <h2 className="text-5xl font-bold text-center text-green-700 font-logo pb-10 mb-8">Top Trending Tips</h2>
+
+
+
+
+
+      <h2 className="text-5xl font-bold text-center text-green-700 font-logo pb-10 mb-8">
+  Top{' '}
+  <span className="text-green-900">
+    <Typewriter
+      words={['Trending Tips', 'Useful Tips', 'Gardening Tips']}
+      loop={true}
+      cursor
+      cursorStyle="|"
+      typeSpeed={80}
+      deleteSpeed={50}
+      delaySpeed={1200}
+    />
+  </span>
+</h2>
+
+
+
+
+
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {tips.map((tip, index) => (
           <div

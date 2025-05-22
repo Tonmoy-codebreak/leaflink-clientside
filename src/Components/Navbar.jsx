@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
-import ThemeChanerBtn from "./ThemeChanerBtn";
+
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -83,7 +83,7 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end">
-          <div className="px-4"><ThemeChanerBtn></ThemeChanerBtn></div>
+          
           {user ? (
             <div className="dropdown dropdown-end md:dropdown-center ">
               
