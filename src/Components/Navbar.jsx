@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
-
+import { Tooltip } from 'react-tooltip'
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -94,14 +94,20 @@ const Navbar = () => {
                       <span className="loading loading-spinner loading-xs"></span>
                     </span>
                   )}
-                  <div className="tooltip tooltip-bottom" data-tip={user.displayName || "User"}>
+                  <div  
+                   data-tooltip-place="left"
+                  data-tooltip-id="avatarName"
+                  data-tooltip-content={user.displayName}
+                  >
                     <img
                       src={imageSrc}
                       alt="User"
                       className={`w-10 h-10 rounded-full object-cover transition-opacity duration-300 ${
                         imageLoaded ? "opacity-100" : "opacity-0"
                       }`}
+                      
                     />
+                    <Tooltip id="avatarName" />
                   </div>
                 </div>
               </div>
