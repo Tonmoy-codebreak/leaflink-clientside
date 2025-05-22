@@ -1,12 +1,21 @@
-# React + Vite
+# 🌿 Project Name : LeafLink
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#🔗 Live Site URL: https://leaf-link-app.web.app/
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📌 Project Features
 
-## Expanding the ESLint configuration
+- 🌱 **Browse Tips**: Users can explore a growing library of public gardening tips shared by the community.
+- 🔍 **Explore Gardeners**: Discover active gardeners with their profiles, tips shared, and areas of interest.
+- 🎉 **Event Slider**: Stay updated on gardening events—local meetups, plant swaps, workshops, and more.
+- ✍️ **Share & Manage Tips**: Authenticated users can post their gardening tips, update or delete them, and control privacy settings.
+- 🔐 **Authentication & User Experience**: Smooth login/registration system with Google Sign-In and password reset via Firebase.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+
+
+## 📖 Project Description
+LeafLink is a vibrant web platform where users can share gardening tips, explore a network of fellow growers, and engage with plant-related events. It features public and private tip sharing, a dynamic gardener exploration page, and an event slider to showcase community happenings. Users can manage their own posts updating, deleting, or toggling privacy and connect with others through insightful content and shared interests. Whether you're seeking advice or showcasing your green thumb, LeafLink brings the gardening world closer, one tip at a time.
+
