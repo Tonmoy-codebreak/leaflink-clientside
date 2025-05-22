@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
@@ -6,33 +6,52 @@ import Swal from "sweetalert2";
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageSrc, setImageSrc] = useState("/images/default-avatar.png");
+
+  useEffect(() => {
+    if (!user?.photoURL) {
+      setImageSrc("/images/default-avatar.png");
+      return;
+    }
+
+    const img = new Image();
+    img.src = user.photoURL;
+
+    img.onload = () => {
+      setImageSrc(user.photoURL);
+      setImageLoaded(true);
+    };
+
+    img.onerror = () => {
+      setImageSrc("/images/default-avatar.png");
+      setImageLoaded(true);
+    };
+  }, [user]);
 
   const handleLogout = () => {
     logoutUser()
       .then(() => {
         console.log("Logged out");
         Swal.fire("You have been Logged out");
-
       })
       .catch((error) => {
         console.error(error.message);
       });
   };
 
-const NavOptions = (
-  <>
-    <li><NavLink to={"/"}>Home</NavLink></li>
-    <li><NavLink to={"/explore"}>Explore Gardeners</NavLink></li>
-    <li><NavLink to={"/browsetips"}>Browse Tips</NavLink></li>
-
-    {user && (
-      <>
-        <li><NavLink to={"/auth/sharetips"}>Share a Garden Tip</NavLink></li>
-        <li><NavLink to={"/auth/mytips"}>My Tips</NavLink></li>
-      </>
-    )}
-  </>
-);
+  const NavOptions = (
+    <>
+      <li><NavLink to={"/"}>Home</NavLink></li>
+      <li><NavLink to={"/explore"}>Explore Gardeners</NavLink></li>
+      <li><NavLink to={"/browsetips"}>Browse Tips</NavLink></li>
+      {user && (
+        <>
+          <li><NavLink to={"/auth/sharetips"}>Share a Garden Tip</NavLink></li>
+          <li><NavLink to={"/auth/mytips"}>My Tips</NavLink></li>
+        </>
+      )}
+    </>
+  );
 
   return (
     <div className="primary-bg">
@@ -51,7 +70,7 @@ const NavOptions = (
             </ul>
           </div>
           <div className="flex items-center gap-2">
-            <img src="/images/LeafLinkPNG.png" alt="logo" className="h-10"/>
+            <img src="/images/LeafLinkPNG.png" alt="logo" className="h-10" />
             <h1 className="text-3xl font-logo">LeafLink</h1>
           </div>
         </div>
@@ -63,9 +82,8 @@ const NavOptions = (
         </div>
 
         <div className="navbar-end">
-          {/* ============================================================================================== */}
           {user ? (
-            <div className="dropdown dropdown-left">
+            <div className="dropdown dropdown-end md:dropdown-center">
               <div tabIndex={0} role="button" className="rounded-full">
                 <div className="relative w-10 h-10">
                   {!imageLoaded && (
@@ -75,13 +93,11 @@ const NavOptions = (
                   )}
                   <div className="tooltip tooltip-bottom" data-tip={user.displayName || "User"}>
                     <img
-                      src={user.photoURL}
+                      src={imageSrc}
                       alt="User"
                       className={`w-10 h-10 rounded-full object-cover transition-opacity duration-300 ${
                         imageLoaded ? "opacity-100" : "opacity-0"
                       }`}
-                      onLoad={() => setImageLoaded(true)}
-                      onError={() => setImageLoaded(true)}
                     />
                   </div>
                 </div>
@@ -98,16 +114,13 @@ const NavOptions = (
                 </li>
               </ul>
             </div>
-          ) : null}
-          {/* ========================================================================== */}
-          {user? null:(
+          ) : (
             <NavLink to="/login">
               <button className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                 Log In
               </button>
             </NavLink>
           )}
-          
         </div>
       </div>
     </div>

@@ -31,10 +31,15 @@ const SignUpPage = () => {
         navigate(location.state?.from?.pathname || "/");
       })
       .catch((error) => {
-        alert(error.message);
+       const errorCode = error.code;
+        Swal.fire({
+          icon: "error",
+          title: errorCode,
+        });
       });
   };
 
+  
   const handleRegister = (e) => {
     e.preventDefault();
     setIsLoading(true);

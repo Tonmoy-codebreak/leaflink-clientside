@@ -1,46 +1,59 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import { ImLeaf } from "react-icons/im";
-import { FiSend } from "react-icons/fi";
 import Swal from "sweetalert2";
+import { FiSend } from "react-icons/fi";
+import { ImLeaf } from "react-icons/im";
 
-const ShareTips = () => {
+const UpdateTip = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const [tipData, setTipData] = useState(null);
 
   useEffect(() => {
-    document.title = "Share Tips";
-  }, []);
+    document.title = "Update Tip";
 
-  const handleSubmit = async (e) => {
+    const fetchTip = async () => {
+      try {
+        const res = await fetch(`http://localhost:3000/tips/${id}`);
+        const data = await res.json();
+        setTipData(data);
+      } catch (error) {
+        console.error("Failed to load tip data:", error);
+      }
+    };
+
+    fetchTip();
+  }, [id]);
+
+  const handleUpdate = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+    const updatedData = Object.fromEntries(new FormData(form).entries());
 
     try {
-      const response = await fetch("http://localhost:3000/alltips", {
-        method: "POST",
+      const res = await fetch(`http://localhost:3000/alltips/${id}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(updatedData),
       });
 
-      const result = await response.json();
-      if (response.ok) {
-        Swal.fire({
-          title: "Tip Added",
-          icon: "success",
-        });
-        form.reset();
+      if (res.ok) {
+        Swal.fire("Updated!", "Your tip has been updated.", "success");
+           navigate("/auth/mytips");
       } else {
-        alert("Failed to submit tip: " + result.message);
+        throw new Error("Failed to update tip");
       }
-    } catch (error) {
-      console.error("Error submitting tip:", error);
-      alert("An error occurred while submitting the tip.");
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error", "Something went wrong while updating.", "error");
     }
   };
+
+  if (!tipData) return <p className="text-center mt-20">Loading tip data...</p>;
 
   return (
     <div className="min-h-screen bg-gradient-to-br py-20 px-4">
@@ -48,12 +61,12 @@ const ShareTips = () => {
         <h1 className="text-4xl md:text-5xl text-center font-bold text-green-700 font-logo mb-6">
           <span className="flex items-center justify-center gap-2">
             <ImLeaf />
-            Share Your Gardening Tip
+            Update Your Gardening Tip
           </span>
         </h1>
 
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleUpdate}
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
         >
           {/* Title */}
@@ -62,7 +75,7 @@ const ShareTips = () => {
             <input
               type="text"
               name="title"
-              placeholder="e.g., How I Grow Tomatoes Indoors"
+              defaultValue={tipData.title}
               className="input input-bordered w-full"
               required
             />
@@ -74,7 +87,7 @@ const ShareTips = () => {
             <input
               type="text"
               name="plant_type"
-              placeholder="Tomato, Herbs, etc."
+              defaultValue={tipData.plant_type}
               className="input input-bordered w-full"
               required
             />
@@ -86,12 +99,9 @@ const ShareTips = () => {
             <select
               name="difficulty_level"
               className="select select-bordered w-full"
-              defaultValue=""
+              defaultValue={tipData.difficulty_level}
               required
             >
-              <option value="" disabled>
-                Select level
-              </option>
               <option value="Easy">Easy</option>
               <option value="Medium">Medium</option>
               <option value="Hard">Hard</option>
@@ -104,12 +114,9 @@ const ShareTips = () => {
             <select
               name="category"
               className="select select-bordered w-full"
-              defaultValue=""
+              defaultValue={tipData.category}
               required
             >
-              <option value="" disabled>
-                Select category
-              </option>
               <option value="Composting">Composting</option>
               <option value="Plant Care">Plant Care</option>
               <option value="Vertical Gardening">Vertical Gardening</option>
@@ -123,12 +130,9 @@ const ShareTips = () => {
             <select
               name="availability"
               className="select select-bordered w-full"
-              defaultValue=""
+              defaultValue={tipData.availability}
               required
             >
-              <option value="" disabled>
-                Select visibility
-              </option>
               <option value="Public">Public</option>
               <option value="Hidden">Hidden</option>
             </select>
@@ -140,7 +144,7 @@ const ShareTips = () => {
             <input
               type="text"
               name="tips_image"
-              placeholder="https://image.url"
+              defaultValue={tipData.tips_image}
               className="input input-bordered w-full"
               required
             />
@@ -153,7 +157,7 @@ const ShareTips = () => {
               name="description"
               rows="5"
               className="textarea textarea-bordered w-full"
-              placeholder="Write your tip in detail..."
+              defaultValue={tipData.description}
               required
             ></textarea>
           </div>
@@ -199,7 +203,7 @@ const ShareTips = () => {
               className="btn btn-wide text-white primary-bg flex items-center gap-2"
             >
               <FiSend size={18} />
-              <p>Submit Tip</p>
+              <p>Update Tip</p>
             </button>
           </div>
         </form>
@@ -208,4 +212,4 @@ const ShareTips = () => {
   );
 };
 
-export default ShareTips;
+export default UpdateTip;

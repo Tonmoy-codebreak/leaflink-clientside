@@ -17,7 +17,7 @@ const LoginPage = () => {
     e.preventDefault();
     signInWithGoogle()
       .then((result) => {
-        console.log(result);
+          setUser(result.user);
         Swal.fire({
           title: "Successfully Logged In",
           icon: "success",
@@ -39,6 +39,7 @@ const LoginPage = () => {
     const data = Object.fromEntries(formData.entries());
     const email = data.email;
     const password = data.password;
+
 
     // log in existing user//////////////////////
     loginUser(email, password)

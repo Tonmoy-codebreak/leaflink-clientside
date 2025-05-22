@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router";
 
 const FeaturedGardener = () => {
   const users = useLoaderData();
-  console.log(users);
+
 
   return (
     <div className="w-10/12 mx-auto mt-20">

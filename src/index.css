@@ -74,3 +74,19 @@ html, body {
   font-style: normal;
   font-variation-settings: "wdth" 100;
 }
+
+
+/* animation css */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+.animation-delay-200 {
+    animation-delay: 0.2s;
+}
+.animation-delay-400 {
+    animation-delay: 0.4s;
+}

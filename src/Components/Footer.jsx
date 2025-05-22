@@ -15,7 +15,7 @@ const Footer = () => {
 
         {/* Terms and Policies */}
         <div>
-          <h3 className="text-xl font-semibold mb-3 font-logo">Legal</h3>
+          <h3 className="text-xl font-semibold mb-3 font-logo">Terms</h3>
           <ul className="space-y-2">
             <li><a href="https://policies.google.com/terms?hl=en-US" target="_blank" className="hover:underline hover:text-amber-200 transition">Terms of Service</a></li>
             <li><a href="https://www.google.com/policies/privacy/archive/20010104-20040701/" target="_blank" className="hover:underline hover:text-amber-200 transition">Privacy Policy</a></li>
