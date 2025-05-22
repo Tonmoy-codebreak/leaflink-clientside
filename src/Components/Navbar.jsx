@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import ThemeChanerBtn from "./ThemeChanerBtn";
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -82,8 +83,10 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end">
+          <div className="px-4"><ThemeChanerBtn></ThemeChanerBtn></div>
           {user ? (
-            <div className="dropdown dropdown-end md:dropdown-center">
+            <div className="dropdown dropdown-end md:dropdown-center ">
+              
               <div tabIndex={0} role="button" className="rounded-full">
                 <div className="relative w-10 h-10">
                   {!imageLoaded && (
