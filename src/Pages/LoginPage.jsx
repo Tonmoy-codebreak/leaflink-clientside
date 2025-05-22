@@ -30,6 +30,7 @@ const LoginPage = () => {
         alert(error.message);
       });
   };
+  
   // handlelogin
   const handlelogin = (e) => {
     e.preventDefault();
@@ -93,7 +94,7 @@ const LoginPage = () => {
       });
   };
   return (
-    <div className="min-h-screen flex font-read overflow-hidden">
+    <div className="h-screen flex font-read overflow-hidden">
       {/* Left: Login Form */}
       <div className="w-full lg:w-1/4 bg-white flex items-center justify-center  px-8 md:px-20">
         <div className="w-full max-w-md">
@@ -175,7 +176,7 @@ const LoginPage = () => {
 
           <p className="text-sm text-center mt-6 text-gray-700">
             Don’t have an account?{" "}
-            <NavLink to="/register" className="text-red-500 hover:underline">
+            <NavLink to="/user/register" className="text-red-500 hover:underline">
               Register
             </NavLink>
           </p>
@@ -186,7 +187,7 @@ const LoginPage = () => {
       <div
         className="hidden lg:block lg:w-3/4  bg-cover bg-center"
         style={{
-          backgroundImage: `url('/images/loginBanner.jpg')`,
+          backgroundImage: `url('https://i.ibb.co/39RCF1rH/login-Banner.jpg')`,
           height: "100vh",
         }}
       ></div>

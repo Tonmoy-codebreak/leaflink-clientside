@@ -20,16 +20,16 @@ const BrowseTips = () => {
   }, [selectedDifficulty, allTips]);
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12 mb-72">
-      <h1 className="text-5xl font-bold text-green-600 mb-6 text-center font-logo">Available Plant Tips</h1>
+    <div className="max-w-7xl mx-auto px-4 py-12 mb-72">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-green-600 mb-6 text-center font-logo">Available Plant Tips</h1>
 
-      {/*  Filter Dropdown */}
+      {/* Filter */}
       <div className="mb-8 text-center">
-        <label className="mr-4 font-medium text-gray-700 text-lg">Filter by Difficulty:</label>
+        <label className="mr-3 font-medium text-gray-700 text-base sm:text-lg">Filter by Difficulty:</label>
         <select
           value={selectedDifficulty}
           onChange={(e) => setSelectedDifficulty(e.target.value)}
-          className="bg-white border border-green-300 text-green-700 font-medium px-4 py-2 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400"
+          className="bg-white border border-green-300 text-green-700 font-medium px-3 py-2 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400"
         >
           <option value="All">All</option>
           <option value="Easy">Easy</option>
@@ -38,8 +38,8 @@ const BrowseTips = () => {
         </select>
       </div>
 
-      {/*  Table */}
-      <div className="overflow-x-auto shadow-lg rounded-xl backdrop-blur-md bg-white/60 border border-gray-200">
+      {/* TABLE: For md and up */}
+      <div className="hidden md:block overflow-x-auto shadow-lg rounded-xl backdrop-blur-md bg-white/60 border border-gray-200">
         <table className="min-w-full divide-y divide-gray-200 text-sm">
           <thead className="bg-green-200/60 text-green-900 font-read text-md tracking-wider">
             <tr>
@@ -88,6 +88,36 @@ const BrowseTips = () => {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* CARDS: For mobile */}
+      <div className="md:hidden grid grid-cols-1 gap-4 mt-6">
+        {filteredTips.map((tip) => (
+          <div key={tip._id} className="bg-white/80 border border-green-200 rounded-xl p-4 shadow-md">
+            <div className="flex items-center gap-4 mb-3">
+              <img
+                src={tip.tips_image}
+                alt={tip.title}
+                className="w-16 h-16 object-cover rounded-md shadow"
+              />
+              <div>
+                <h2 className="text-lg font-semibold text-gray-800">{tip.title}</h2>
+                <p className="text-sm text-gray-600">{tip.category} · {tip.difficulty_level}</p>
+              </div>
+            </div>
+            <div className="text-right">
+              <NavLink
+                to={`/auth/tipsDetails/${tip._id}`}
+                className="inline-flex items-center text-green-600 hover:text-green-800 font-medium text-sm"
+              >
+                <FaEye className="mr-1" /> View
+              </NavLink>
+            </div>
+          </div>
+        ))}
+        {filteredTips.length === 0 && (
+          <p className="text-center text-gray-500 italic">No tips found for this difficulty level.</p>
+        )}
       </div>
     </div>
   );

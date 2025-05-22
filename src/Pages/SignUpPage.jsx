@@ -16,29 +16,25 @@ const SignUpPage = () => {
   const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+
   // handleGoogleLogin
   const handleGoogleLogin = (e) => {
-    e.preventDefault();
-    signInWithGoogle()
-      .then((result) => {
-        console.log(result);
-        Swal.fire({
-          title: "Successfully Logged In",
-          icon: "success",
-          draggable: true,
+      e.preventDefault();
+      signInWithGoogle()
+        .then((result) => {
+            setUser(result.user);
+          Swal.fire({
+            title: "Successfully Logged In",
+            icon: "success",
+            draggable: true,
+          });
+  
+          navigate(location.state?.from?.pathname || "/");
+        })
+        .catch((error) => {
+          
         });
-
-        navigate(location.state?.from?.pathname || "/");
-      })
-      .catch((error) => {
-       const errorCode = error.code;
-        Swal.fire({
-          icon: "error",
-          title: errorCode,
-        });
-      });
-  };
-
+    };
   
   const handleRegister = (e) => {
     e.preventDefault();
@@ -213,7 +209,7 @@ const SignUpPage = () => {
 
           <p className="text-sm text-center mt-6 text-gray-700">
             Already have an account?{" "}
-            <NavLink to="/login" className="text-red-500 hover:underline">
+            <NavLink to="/user/login" className="text-red-500 hover:underline">
               Login
             </NavLink>
           </p>
@@ -224,7 +220,7 @@ const SignUpPage = () => {
       <div
         className="hidden lg:block lg:w-3/4 bg-cover bg-center"
         style={{
-          backgroundImage: `url('/images/registerBanner.jpg')`,
+          backgroundImage: `url('https://i.ibb.co/W9QckCj/register-Banner.jpg')`,
           height: "100vh",
         }}
       ></div>

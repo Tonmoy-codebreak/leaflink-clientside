@@ -10,7 +10,7 @@ const MyTipsPage = () => {
   useEffect(() => {
     document.title = "My Tips";
     if (user?.email) {
-      fetch(`http://localhost:3000/ownedtips?email=${user.email}`)
+      fetch(`https://leaflink-app-server.vercel.app/ownedtips?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => setTips(data))
         .catch((err) => console.error("Error fetching tips:", err));
@@ -28,7 +28,7 @@ const MyTipsPage = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await fetch(`http://localhost:3000/alltips/${id}`, {
+        const res = await fetch(`https://leaflink-app-server.vercel.app/alltips/${id}`, {
           method: "DELETE",
         });
 
@@ -43,7 +43,7 @@ const MyTipsPage = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto py-20 px-4 mb-48">
+    <div className="max-w-6xl mx-auto py-20 px-4 mb-72">
       <h1 className="text-4xl md:text-5xl font-logo mt-10 md:mt-20 text-center mb-10 text-green-800">
         My Gardening Tips
       </h1>

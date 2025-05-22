@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
 const TipsDetailPage = () => {
-
-
-          
   const { id } = useParams();
   const [tip, setTip] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/tips/${id}`)
+    fetch(`https://leaflink-app-server.vercel.app/tips/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setTip(data);
@@ -22,9 +19,6 @@ const TipsDetailPage = () => {
         setLoading(false);
       });
   }, [id]);
-
-
-
 
   if (loading) {
     return (
@@ -42,18 +36,15 @@ const TipsDetailPage = () => {
     );
   }
 
-
-    
-
   return (
-    <div className="w-10/12 mx-auto mt-20 mb-52 p-6 bg-white/70 backdrop-blur-md rounded-xl ">
-      {/* tips.Title */}
-      <h1 className="text-4xl lg:text-5xl font-read font-semibold text-center text-green-700 py-1 mb-6">
+    <div className="w-11/12 sm:w-10/12 mx-auto mt-16 mb-40 p-4 sm:p-6 bg-white/70 backdrop-blur-md rounded-xl ">
+      {/* Title */}
+      <h1 className="text-2xl sm:text-4xl md:text-5xl font-read font-semibold text-center text-green-700 mb-6">
         {tip.title}
       </h1>
 
       {/* Tags */}
-      <div className="flex flex-wrap justify-center gap-4 text-sm font-read text-gray-700 mb-10 md:mb-28">
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4 text-xs sm:text-sm font-read text-gray-700 mb-10">
         <span className="px-3 py-1 bg-green-100 rounded-full text-green-800 font-medium">
           Category: {tip.category}
         </span>
@@ -68,34 +59,36 @@ const TipsDetailPage = () => {
         </span>
       </div>
 
-      {/* Card */}
-      <div className="flex flex-col lg:flex-row gap-10 items-start">
+      {/* Content Card */}
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-center lg:items-start">
         {/* Image */}
-        <img
-          src={tip.tips_image}
-          alt={tip.title}
-          className="w-full lg:w-1/2 h-96 object-cover rounded-lg shadow-md"
-        />
+        <div className="w-full lg:w-1/2">
+          <img
+            src={tip.tips_image}
+            alt={tip.title}
+            className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg shadow-md"
+          />
+        </div>
 
-        {/* Description */}
-        <div className="flex-1 font-read text-gray-800 leading-relaxed">
-          <p className="mb-6">{tip.description}</p>
+        {/* Description Section */}
+        <div className="w-full lg:flex-1 font-read text-gray-800 leading-relaxed text-base sm:text-lg">
+          <p className="mb-6 whitespace-pre-line">{tip.description}</p>
 
           {tip.care_tips && (
             <>
-              <h2 className="text-green-600 font-semibold mb-2">Extra Care Tips</h2>
-              <p>{tip.care_tips}</p>
+              <h2 className="text-green-600 font-semibold mb-2 text-lg">Extra Care Tips</h2>
+              <p className="mb-4 whitespace-pre-line">{tip.care_tips}</p>
             </>
           )}
 
           {/* Shared By */}
-          <div className="flex items-center gap-4 mt-8">
+          <div className="flex items-center gap-3 mt-8">
             <img
               src={tip.image}
               alt={tip.name}
-              className="w-14 h-14 rounded-full object-cover ring-2 ring-green-300"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover ring-2 ring-green-300"
             />
-            <p className="text-green-800 font-semibold">Shared by: {tip.name}</p>
+            <p className="text-green-800 font-semibold text-sm sm:text-base">Shared by: {tip.name}</p>
           </div>
         </div>
       </div>

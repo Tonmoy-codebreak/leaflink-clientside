@@ -16,7 +16,7 @@ const UpdateTip = () => {
 
     const fetchTip = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/tips/${id}`);
+        const res = await fetch(`https://leaflink-app-server.vercel.app/tips/${id}`);
         const data = await res.json();
         setTipData(data);
       } catch (error) {
@@ -33,7 +33,7 @@ const UpdateTip = () => {
     const updatedData = Object.fromEntries(new FormData(form).entries());
 
     try {
-      const res = await fetch(`http://localhost:3000/alltips/${id}`, {
+      const res = await fetch(`https://leaflink-app-server.vercel.app/alltips/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

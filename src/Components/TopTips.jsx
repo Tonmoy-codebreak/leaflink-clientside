@@ -6,11 +6,17 @@ import { Typewriter } from 'react-simple-typewriter';
 
 const TopTips = () => {
   const [tips, setTips] = useState([]);
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
-    fetch('http://localhost:3000/toptips')
+      setLoading(true);
+    fetch('https://leaflink-app-server.vercel.app/toptips')
       .then(res => res.json())
-      .then(data => setTips(data))
+      .then(data => {
+        setTips(data)
+        setLoading(false);})
+       
       .catch(err => console.error('Failed to fetch tips:', err));
   }, []);
 
@@ -41,7 +47,13 @@ const TopTips = () => {
 
 
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {
+        loading?
+        (<div className="flex justify-center items-center h-64">
+    <span className="loading loading-spinner loading-xl text-green-700"></span>
+  </div>)
+        :
+        (<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {tips.map((tip, index) => (
           <div
             key={index}
@@ -81,7 +93,8 @@ const TopTips = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div>)
+      }
     </div>
   );
 };

@@ -9,7 +9,7 @@ const ExplorePage = () => {
   const users = useLoaderData();
 
   return (
-    <div className="w-11/12 md:w-9/12 mx-auto py-20">
+    <div className="w-11/12 md:w-8/12 mx-auto py-20">
       <h1 className="text-4xl md:text-6xl font-logo text-center text-green-700 mb-16">
         Explore Gardeners
         

@@ -11,6 +11,7 @@ import PrivateRoute from "./PrivateRoutes";
 import BrowseTips from "../Pages/BrowseTips";
 import TipsDetailPage from "../Pages/TipsDetailPage";
 import UpdateTip from "../Pages/UpdateTip";
+import UserEntryLayout from "../LayOuts/UserEntryLayout";
 
 const router = createBrowserRouter([
   {
@@ -19,24 +20,24 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       { path: "/",
-        loader: ()=> fetch('http://localhost:3000/activeusers'),
+        loader: ()=> fetch('https://leaflink-app-server.vercel.app/activeusers'),
         element: <HomePage></HomePage> },
       {
         path: "/explore",
-        loader: ()=> fetch('http://localhost:3000/allusers'),
+        loader: ()=> fetch('https://leaflink-app-server.vercel.app/allusers'),
         element: <ExplorePage></ExplorePage>,
       },
-      {
-        path: "/login",
-        element: <LoginPage></LoginPage>,
-      },
-      {
-        path: "/register",
-        element: <SignUpPage></SignUpPage>,
-      },
+      // {
+      //   path: "/login",
+      //   element: <LoginPage></LoginPage>,
+      // },
+      // {
+      //   path: "/register",
+      //   element: <SignUpPage></SignUpPage>,
+      // },
       {
         path: "/browsetips",
-        loader: ()=> fetch('http://localhost:3000/publictips'),
+        loader: ()=> fetch('https://leaflink-app-server.vercel.app/publictips'),
         element: <BrowseTips></BrowseTips>,
       },
 
@@ -77,6 +78,22 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/user",
+    element: <UserEntryLayout></UserEntryLayout>,
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        path: "/user/login",
+        element: <LoginPage></LoginPage>,
+      },
+      {
+        path: "/user/register",
+        element: <SignUpPage></SignUpPage>,
+      },
+    ]
+  }
+   
 ]);
 
 export default router;

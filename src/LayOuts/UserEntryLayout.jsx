@@ -1,14 +1,12 @@
 import React from 'react';
-import {Outlet, useNavigation } from 'react-router';
+import { Outlet, useNavigation } from 'react-router';
 import Navbar from '../Components/Navbar';
-import Footer from '../Components/Footer';
 
-const MainLayout = () => {
+const UserEntryLayout = () => {
     const navigation = useNavigation();
-
     return (
         <div>
-            <Navbar />
+                        <Navbar />
             
             
             {navigation.state === 'loading' && (
@@ -16,10 +14,10 @@ const MainLayout = () => {
                     <span className="loading loading-spinner loading-xl text-green-600"></span>
                 </div>
             )}
-            <Outlet></Outlet>
-           <Footer></Footer>
+
+            <Outlet />
         </div>
     );
 };
 
-export default MainLayout;
+export default UserEntryLayout;

@@ -18,7 +18,7 @@ const ShareTips = () => {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch("http://localhost:3000/alltips", {
+      const response = await fetch("https://leaflink-app-server.vercel.app/alltips", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
