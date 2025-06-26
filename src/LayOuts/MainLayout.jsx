@@ -7,7 +7,7 @@ const MainLayout = () => {
     const navigation = useNavigation();
 
     return (
-        <div>
+        <div className='min-h-screen  overflow-x-hidden flex flex-col'>
             <Navbar />
             
             
@@ -16,7 +16,9 @@ const MainLayout = () => {
                     <span className="loading loading-spinner loading-xl text-green-600"></span>
                 </div>
             )}
-            <Outlet></Outlet>
+            <main className='flex-grow'>
+                <Outlet></Outlet>
+            </main>
            <Footer></Footer>
         </div>
     );

@@ -1,54 +1,72 @@
 import React from "react";
 import { useLoaderData } from "react-router";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
 
 const FeaturedGardener = () => {
   const users = useLoaderData();
 
   return (
-    <div className="w-11/12 sm:w-10/12 mx-auto mt-12 sm:mt-20">
-      <h1 className="text-3xl sm:text-5xl text-center font-logo mb-8 sm:mb-12">
-        Featured Gardeners
+    <section className="py-16 sm:py-24 bg-gradient-to-b from-green-50 to-white w-full">
+      <h1 className="text-3xl sm:text-5xl lg:text-6xl text-center font-logo text-green-800 mb-12 sm:mb-16 leading-tight">
+        Meet Our <span className="text-green-600">Featured Gardeners</span>
       </h1>
 
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 font-read sm:w-10/12 mx-auto">
+      {/* Grid layout with animation */}
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 px-6 sm:px-12 md:px-20 max-w-7xl mx-auto font-read"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.1 }}
+      >
         {users.map((user) => (
-          <div
+          <motion.div
             key={user.userID}
-            className="bg-white rounded-2xl shadow-md border border-gray-200 p-4 sm:p-6 flex flex-col items-center text-center transition duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-amber-50"
+            className="flex items-start gap-6"
+            variants={itemVariants}
           >
-            <div className="relative">
-              <img
-                src={user.image}
-                alt={user.name}
-                className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-full border-4 border-green-400"
-              />
-              <span className="absolute bottom-1 right-1 bg-green-500 text-white text-xs px-2 py-0.5 rounded-full shadow">
-                Active
-              </span>
+            {/* Image */}
+            <img
+              src={user.image || "https://placehold.co/120x120/E0F2F1/2E7D32?text=User"}
+              alt={user.name || "Gardener"}
+              className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-full border-4 border-green-300 flex-shrink-0"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://placehold.co/120x120/E0F2F1/2E7D32?text=User";
+              }}
+            />
+
+            {/* Content */}
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-1">{user.name}</h2>
+              <p className="text-gray-600 text-sm sm:text-base mb-1">
+                Age: <span className="font-medium">{user.age}</span> • Gender: <span className="font-medium">{user.gender}</span>
+              </p>
+              <p className="text-green-700 font-semibold text-base sm:text-lg mb-1">
+                {user.experience} Experience
+              </p>
+              <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+                Shared <span className="text-green-800 font-bold">{user.totalSharedTips}</span> tips about gardening, sustainability, and care.
+              </p>
             </div>
-
-            <h2 className="text-lg sm:text-xl font-semibold mt-3 sm:mt-4">
-              {user.name}
-            </h2>
-            <p className="text-gray-500 text-xs sm:text-sm mb-1">
-              Age: {user.age} • {user.gender}
-            </p>
-            <p className="text-green-600 font-medium text-sm sm:text-base">
-              {user.experience} Experience
-            </p>
-
-            <div className="w-full border-t border-gray-100 my-3"></div>
-
-            <p className="text-xs sm:text-sm text-gray-700">
-              <span className="font-semibold text-gray-800">
-                {user.totalSharedTips}
-              </span>{" "}
-              Tips Shared
-            </p>
-          </div>
+          </motion.div>
         ))}
-      </div>
-    </div>
+      </motion.div>
+    </section>
   );
 };
 

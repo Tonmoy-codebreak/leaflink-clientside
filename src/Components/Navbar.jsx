@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 import { Tooltip } from 'react-tooltip';
@@ -54,7 +54,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="primary-bg sticky top-0 z-50 shadow-md">
+    <div className="primary-bg sticky top-0 z-50 shadow-md w-full"  style={{ position: 'sticky' }}>
       <div className="navbar w-11/12 mx-auto text-white">
         {/* Navbar Start */}
         <div className="navbar-start">
@@ -143,11 +143,11 @@ const Navbar = () => {
               </ul>
             </div>
           ) : (
-            <NavLink to="/user/login">
+            <Link to="/user/login">
               <button className="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5">
                 Log In
               </button>
-            </NavLink>
+            </Link>
           )}
         </div>
       </div>
