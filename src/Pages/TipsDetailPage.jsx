@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { motion } from "framer-motion";
 
 const TipsDetailPage = () => {
   const { id } = useParams();
@@ -22,8 +23,8 @@ const TipsDetailPage = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center mt-20">
-        <span className="loading loading-spinner loading-xl text-green-600"></span>
+      <div className="flex justify-center items-center h-[40vh]">
+        <span className="loading loading-spinner loading-lg text-green-600"></span>
       </div>
     );
   }
@@ -37,62 +38,61 @@ const TipsDetailPage = () => {
   }
 
   return (
-    <div className="w-11/12 sm:w-10/12 mx-auto mt-16 mb-40 p-4 sm:p-6 bg-white/70 backdrop-blur-md rounded-xl ">
-      {/* Title */}
-      <h1 className="text-2xl sm:text-4xl md:text-5xl font-read font-semibold text-center text-green-700 mb-6">
-        {tip.title}
-      </h1>
+    <motion.div
+      className="min-h-screen bg-gradient-to-b from-green-50 to-white py-20 px-4 sm:px-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+    >
+      <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-3xl p-6 sm:p-10 space-y-10 font-read">
+        {/* Title */}
+        <div>
+          <h1 className="text-3xl sm:text-4xl font-bold text-green-800 mb-3">{tip.title}</h1>
 
-      {/* Tags */}
-      <div className="flex flex-wrap justify-center gap-3 sm:gap-4 text-xs sm:text-sm font-read text-gray-700 mb-10">
-        <span className="px-3 py-1 bg-green-100 rounded-full text-green-800 font-medium">
-          Category: {tip.category}
-        </span>
-        <span className="px-3 py-1 bg-yellow-100 rounded-full text-yellow-800 font-medium">
-          Difficulty: {tip.difficulty_level}
-        </span>
-        <span className="px-3 py-1 bg-blue-100 rounded-full text-blue-800 font-medium">
-          Type: {tip.plant_type}
-        </span>
-        <span className="px-3 py-1 bg-purple-100 rounded-full text-purple-800 font-medium">
-          Availability: {tip.availability}
-        </span>
-      </div>
+          {/* Tags */}
+          <div className="flex flex-wrap gap-3 text-sm sm:text-base font-medium">
+            <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full">Category: {tip.category}</span>
+            <span className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full">Difficulty: {tip.difficulty_level}</span>
+            <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full">Type: {tip.plant_type}</span>
+            <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full">Availability: {tip.availability}</span>
+          </div>
+        </div>
 
-      {/* Content Card */}
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-center lg:items-start">
-        {/* Image */}
-        <div className="w-full lg:w-1/2">
+        {/* Main Image */}
+        <div className="rounded-xl overflow-hidden shadow-md">
           <img
             src={tip.tips_image}
             alt={tip.title}
-            className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg shadow-md"
+            className="w-full h-[280px] sm:h-[400px] object-cover"
           />
         </div>
 
-        {/* Description Section */}
-        <div className="w-full lg:flex-1 font-read text-gray-800 leading-relaxed text-base sm:text-lg">
-          <p className="mb-6 whitespace-pre-line">{tip.description}</p>
+        {/* Description */}
+        <div className="text-gray-800 text-base sm:text-lg leading-relaxed space-y-6">
+          <p className="whitespace-pre-line">{tip.description}</p>
 
           {tip.care_tips && (
-            <>
-              <h2 className="text-green-600 font-semibold mb-2 text-lg">Extra Care Tips</h2>
-              <p className="mb-4 whitespace-pre-line">{tip.care_tips}</p>
-            </>
+            <div>
+              <h2 className="text-green-700 font-semibold text-lg sm:text-xl mb-2">🌿 Extra Care Tips</h2>
+              <p className="whitespace-pre-line">{tip.care_tips}</p>
+            </div>
           )}
+        </div>
 
-          {/* Shared By */}
-          <div className="flex items-center gap-3 mt-8">
-            <img
-              src={tip.image}
-              alt={tip.name}
-              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover ring-2 ring-green-300"
-            />
+        {/* Shared by */}
+        <div className="flex items-center gap-4 pt-6 border-t border-green-200">
+          <img
+            src={tip.image}
+            alt={tip.name}
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover ring-2 ring-green-300"
+          />
+          <div>
             <p className="text-green-800 font-semibold text-sm sm:text-base">Shared by: {tip.name}</p>
+            <p className="text-gray-500 text-xs">Thanks for contributing 🌱</p>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
