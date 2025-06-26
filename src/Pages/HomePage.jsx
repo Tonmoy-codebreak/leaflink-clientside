@@ -4,6 +4,7 @@ import FeaturedGardener from '../Components/FeaturedGardener';
 import TopTips from '../Components/TopTips';
 import GardenTools from '../Components/GardenTools';
 import FinalSection from '../Components/FinalSection';
+import NewsLetter from '../Components/NewsLetter';
 
 const HomePage = () => {
      useEffect(() => {
@@ -18,6 +19,7 @@ const HomePage = () => {
             <TopTips></TopTips>
             <GardenTools></GardenTools>
             <FinalSection></FinalSection>
+            <NewsLetter></NewsLetter>
 
         </div>
         
