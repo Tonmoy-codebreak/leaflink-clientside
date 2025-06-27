@@ -5,12 +5,10 @@ import { FaEye, FaSearch } from "react-icons/fa";
 const BrowseTips = () => {
   const allTips = useLoaderData();
 
-  // Extract unique categories from allTips for filter dropdown
-  const categories = Array.from(new Set(allTips.map((tip) => tip.category)));
-
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("All");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [sortOrder, setSortOrder] = useState("none"); // "none" | "asc" | "desc"
   const [filteredTips, setFilteredTips] = useState(allTips);
 
   useEffect(() => {
@@ -36,18 +34,28 @@ const BrowseTips = () => {
       );
     }
 
+    if (sortOrder === "asc") {
+      filtered = filtered.slice().sort((a, b) =>
+        a.title.localeCompare(b.title)
+      );
+    } else if (sortOrder === "desc") {
+      filtered = filtered.slice().sort((a, b) =>
+        b.title.localeCompare(a.title)
+      );
+    }
+
     setFilteredTips(filtered);
-  }, [selectedDifficulty, selectedCategory, searchTerm, allTips]);
+  }, [selectedDifficulty, selectedCategory, searchTerm, sortOrder, allTips]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12 mb-24">
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-green-600 mb-8 text-center font-logo md:py-16">
+    <div className="max-w-7xl mx-auto px-4 py-8 mb-24">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-green-600 mb-8 text-center font-logo md:py-12">
         Available Plant Tips
       </h1>
 
       <div className="flex flex-col md:flex-row gap-8">
         {/* Left Sidebar Filters */}
-        <aside className="md:w-1/4 space-y-6 sticky top-24 self-start">
+        <aside className="w-full md:w-1/4 space-y-6 sticky md:top-24 top-6 self-start">
           {/* Search by Title */}
           <div>
             <label className="block mb-2 font-semibold text-gray-700">
@@ -99,10 +107,26 @@ const BrowseTips = () => {
               <option value="Indoor Gardening">Indoor Gardening</option>
             </select>
           </div>
+
+          {/* Sort By Title */}
+          <div>
+            <label className="block mb-2 font-semibold text-gray-700">
+              Sort by Title
+            </label>
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+              className="w-full px-3 py-2 rounded border border-green-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+            >
+              <option value="none">None</option>
+              <option value="asc">Ascending (A-Z)</option>
+              <option value="desc">Descending (Z-A)</option>
+            </select>
+          </div>
         </aside>
 
         {/* Right: Tips Cards */}
-        <main className="md:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <main className="w-full md:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredTips.length > 0 ? (
             filteredTips.map((tip) => (
               <div

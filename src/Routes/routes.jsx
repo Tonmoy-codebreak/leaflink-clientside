@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         element: <HomePage></HomePage> },
       {
         path: "/explore",
-        loader: ()=> fetch('https://leaflink-app-server.vercel.app/allusers'),
+       loader: () => fetch('https://leaflink-app-server.vercel.app/tip-users'),
         element: <ExplorePage></ExplorePage>,
       },
       // {
