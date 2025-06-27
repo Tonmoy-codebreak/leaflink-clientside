@@ -7,7 +7,7 @@ const MainLayout = () => {
     const navigation = useNavigation();
 
     return (
-        <div className='min-h-screen  overflow-x-hidden flex flex-col'>
+        <div className='min-h-screen   flex flex-col'>
             <Navbar />
             
             

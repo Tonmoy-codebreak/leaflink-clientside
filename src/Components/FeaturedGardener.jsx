@@ -20,7 +20,7 @@ const FeaturedGardener = () => {
   const users = useLoaderData();
 
   return (
-    <section className="py-16 sm:py-24  w-full">
+    <section className="py-5 sm:py-24  w-full">
       <h1 className="text-3xl sm:text-5xl lg:text-6xl text-center font-logo text-green-800 mb-12 sm:mb-16 leading-tight">
         Meet Our <span className="text-green-600">Featured Gardeners</span>
       </h1>
