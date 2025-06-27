@@ -59,7 +59,7 @@ const SeasonalPlant = () => {
 
   return (
     <section className="py-16 sm:py-20 bg-gradient-to-br from-white via-green-50 to-white font-logo">
-      <h1 className="text-center text-4xl sm:text-5xl font-logo pb-12 sm:pb-20 text-green-800">
+      <h1 className="text-center text-3xl lg:text-5xl font-logo pb-12 sm:pb-20 text-green-800">
         Plants That Thrive by Season
       </h1>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center">
@@ -103,7 +103,7 @@ const SeasonalPlant = () => {
         </div>
 
         {/* Right: Info panel with fading background */}
-        <div className="relative rounded-3xl shadow-xl p-6 sm:p-8 md:p-10 min-h-[280px] sm:min-h-[300px] overflow-hidden">
+        <div className="relative rounded-3xl shadow-xl p-6 sm:p-8 mt-10 md:mt-0 md:p-10 min-h-[280px] sm:min-h-[300px] overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
               key={selectedSeason ? selectedSeason.name : "default"}
