@@ -5,6 +5,7 @@ import TopTips from '../Components/TopTips';
 import GardenTools from '../Components/GardenTools';
 import FinalSection from '../Components/FinalSection';
 import NewsLetter from '../Components/NewsLetter';
+import SeasonalPlant from '../Components/SeasonalPlant';
 
 const HomePage = () => {
      useEffect(() => {
@@ -15,9 +16,11 @@ const HomePage = () => {
         <>
         <div>
             <BannerSlide></BannerSlide>
-            <FeaturedGardener></FeaturedGardener>
             <TopTips></TopTips>
+            <FeaturedGardener></FeaturedGardener>
+            
             <GardenTools></GardenTools>
+            <SeasonalPlant></SeasonalPlant>
             <FinalSection></FinalSection>
             <NewsLetter></NewsLetter>
 

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
 
 const images = [
   {
@@ -58,74 +57,85 @@ const images = [
   },
 ];
 
-// Duplicate images to create infinite scrolling effect
-const duplicatedImages = [...images, ...images];
-
 const GardenTools = () => {
-  const controls = useAnimation();
-  const [isPaused, setIsPaused] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const timeoutRef = useRef(null);
 
-  React.useEffect(() => {
-    if (!isPaused) {
-      controls.start({
-        x: ["0%", "-50%"],
-        transition: {
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: 30,
-            ease: "linear",
-          },
-        },
-      });
-    } else {
-      controls.stop();
-    }
-  }, [controls, isPaused]);
+  // Auto slide every 5s
+  useEffect(() => {
+    timeoutRef.current = setTimeout(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 5000);
+
+    return () => clearTimeout(timeoutRef.current);
+  }, [currentIndex]);
+
+  const prevSlide = () => {
+    clearTimeout(timeoutRef.current);
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const nextSlide = () => {
+    clearTimeout(timeoutRef.current);
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white via-green-50 to-white font-read">
-      <div className="max-w-7xl mx-auto px-6">
+    <section
+      className="py-16 sm:py-20 bg-gradient-to-b from-white via-green-50 to-white font-read"
+      aria-label="Tree care essentials section"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h1 className="text-5xl font-logo font-bold text-green-900 leading-tight">
+        <div className="text-center max-w-3xl mx-auto mb-8">
+          <h1 className="text-3xl md:text-5xl font-logo pb-20 font-bold text-green-900 leading-tight">
             Essentials every tree requires
           </h1>
-          
         </div>
 
-        {/* Sliding Carousel */}
-        <div
-          className="overflow-hidden rounded-3xl "
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          aria-label="Tree care essentials horizontal slider"
-        >
-          <motion.div
-            className="flex w-[calc(200%)]"
-            animate={controls}
-            style={{ gap: "1rem" }}
+        {/* Slider */}
+        <div className="relative overflow-hidden rounded-3xl">
+          <div
+            className="flex transition-transform duration-700 ease-in-out"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
-            {duplicatedImages.map(({ src, alt, title, desc }, i) => (
+            {images.map(({ src, alt }, i) => (
               <div
                 key={i}
-                className="group min-w-[25%] relative rounded-3xl overflow-hidden cursor-pointer shadow-md"
-                role="group"
-                tabIndex={0}
+                className="min-w-full rounded-3xl overflow-hidden cursor-pointer shadow-lg"
               >
                 <img
                   src={src}
                   alt={alt}
-                  className="w-full h-72 object-cover brightness-90 rounded-3xl group-hover:brightness-75 transition duration-300"
+                  className="w-full h-72 sm:h-96 object-cover rounded-3xl"
                   loading="lazy"
+                  decoding="async"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent rounded-3xl flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <h3 className="text-white text-xl font-semibold mb-1">{title}</h3>
-                  <p className="text-white text-sm font-light">{desc}</p>
-                </div>
               </div>
             ))}
-          </motion.div>
+          </div>
+
+          {/* Controls */}
+          <button
+            onClick={prevSlide}
+            aria-label="Previous slide"
+            className="absolute top-1/2 left-4 -translate-y-1/2 bg-green-700 hover:bg-green-800 text-white rounded-full p-2 shadow-md focus:outline-none focus:ring-2 focus:ring-green-600"
+          >
+            &#8592;
+          </button>
+          <button
+            onClick={nextSlide}
+            aria-label="Next slide"
+            className="absolute top-1/2 right-4 -translate-y-1/2 bg-green-700 hover:bg-green-800 text-white rounded-full p-2 shadow-md focus:outline-none focus:ring-2 focus:ring-green-600"
+          >
+            &#8594;
+          </button>
+        </div>
+
+        {/* Info below slider */}
+        <div className="max-w-4xl mx-auto mt-12 text-green-900 text-xl leading-relaxed font-light px-4 sm:px-0">
+          <h2 className="text-2xl font-semibold mb-3">{images[currentIndex].title}</h2>
+          <p>{images[currentIndex].desc}</p>
         </div>
       </div>
     </section>
