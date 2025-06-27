@@ -21,7 +21,7 @@ const NewsLetter = () => {
   };
 
   return (
-    <section className="bg-green-600 py-16 px-6 sm:px-12 rounded-3xl max-w-5xl mx-auto mt-20 shadow-lg ">
+    <section className="bg-green-600 py-16 px-6 sm:px-12 rounded-3xl max-w-5xl mx-auto mt-20 shadow-lg mb-20">
       <div className="max-w-3xl mx-auto text-center text-white">
         {/* Leaf Icon */}
         <div className="mx-auto mb-6 w-14 h-14 opacity-80">

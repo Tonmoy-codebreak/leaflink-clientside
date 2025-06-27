@@ -1,11 +1,22 @@
 import React from "react";
 import { Link } from "react-router";
+import { motion } from "framer-motion";
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 40 },
+  whileInView: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, ease: "easeOut" },
+};
 
 const AboutUs = () => {
   return (
     <section className="font-read text-gray-800">
-      {/* Intro Section */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      {/* Who We Are */}
+      <motion.div
+        {...fadeInUp}
+        viewport={{ once: true }}
+        className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+      >
         <div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-green-700 mb-4 font-logo">
             Who We Are
@@ -22,10 +33,14 @@ const AboutUs = () => {
           alt="Who we are"
           className="rounded-xl shadow-md w-full object-cover h-64 sm:h-80 md:h-full"
         />
-      </div>
+      </motion.div>
 
-      {/* Mission Section */}
-      <div className="bg-green-50 py-12 sm:py-16 px-4 sm:px-6">
+      {/* Mission */}
+      <motion.div
+        {...fadeInUp}
+        viewport={{ once: true }}
+        className="bg-green-50 py-12 sm:py-16 px-4 sm:px-6"
+      >
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <img
             src="https://images.unsplash.com/photo-1484268234627-2278797bec04?w=500&auto=format&fit=crop&q=60"
@@ -45,10 +60,14 @@ const AboutUs = () => {
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Features Section */}
-      <div className="py-12 sm:py-16 px-4 sm:px-6">
+      {/* Features */}
+      <motion.div
+        {...fadeInUp}
+        viewport={{ once: true }}
+        className="py-12 sm:py-16 px-4 sm:px-6"
+      >
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-green-700 mb-10 font-logo">
             What Makes LeafLink Special?
@@ -72,8 +91,10 @@ const AboutUs = () => {
                 img: "https://images.unsplash.com/photo-1553123428-247ffbd12d90?w=600",
               },
             ].map(({ title, desc, img }, i) => (
-              <div
+              <motion.div
                 key={i}
+                {...fadeInUp}
+                viewport={{ once: true }}
                 className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition"
               >
                 <img
@@ -87,14 +108,18 @@ const AboutUs = () => {
                   </h3>
                   <p className="text-gray-600 text-sm sm:text-base">{desc}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Join Us Section */}
-      <div className="bg-green-50">
+      {/* Join Us */}
+      <motion.div
+        {...fadeInUp}
+        viewport={{ once: true }}
+        className="bg-green-50"
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div className="order-2 md:order-1">
             <h2 className="text-3xl sm:text-4xl font-bold text-green-700 mb-4">
@@ -118,7 +143,7 @@ const AboutUs = () => {
             className="rounded-xl shadow-md order-1 md:order-2 w-full object-cover h-64 sm:h-80 md:h-full"
           />
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
