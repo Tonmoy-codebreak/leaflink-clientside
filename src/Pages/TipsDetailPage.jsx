@@ -88,7 +88,7 @@ const TipsDetailPage = () => {
           />
           <div>
             <p className="text-green-800 font-semibold text-sm sm:text-base">Shared by: {tip.name}</p>
-            <p className="text-gray-500 text-xs">Thanks for contributing 🌱</p>
+            
           </div>
         </div>
       </div>

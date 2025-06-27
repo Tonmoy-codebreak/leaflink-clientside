@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useLoaderData, NavLink } from 'react-router';
-import { FaEye } from 'react-icons/fa';
+import React, { useEffect, useState } from "react";
+import { useLoaderData, NavLink } from "react-router";
+import { FaEye, FaSearch } from "react-icons/fa";
 
 const BrowseTips = () => {
   const allTips = useLoaderData();
+
+  // Extract unique categories from allTips for filter dropdown
+  const categories = Array.from(new Set(allTips.map((tip) => tip.category)));
+
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [filteredTips, setFilteredTips] = useState(allTips);
 
   useEffect(() => {
@@ -12,112 +18,124 @@ const BrowseTips = () => {
   }, []);
 
   useEffect(() => {
-    if (selectedDifficulty === "All") {
-      setFilteredTips(allTips);
-    } else {
-      setFilteredTips(allTips.filter(tip => tip.difficulty_level === selectedDifficulty));
+    let filtered = allTips;
+
+    if (selectedDifficulty !== "All") {
+      filtered = filtered.filter(
+        (tip) => tip.difficulty_level === selectedDifficulty
+      );
     }
-  }, [selectedDifficulty, allTips]);
+
+    if (selectedCategory !== "All") {
+      filtered = filtered.filter((tip) => tip.category === selectedCategory);
+    }
+
+    if (searchTerm.trim() !== "") {
+      filtered = filtered.filter((tip) =>
+        tip.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    setFilteredTips(filtered);
+  }, [selectedDifficulty, selectedCategory, searchTerm, allTips]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12 mb-72">
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-green-600 mb-6 text-center font-logo">Available Plant Tips</h1>
+    <div className="max-w-7xl mx-auto px-4 py-12 mb-24">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-green-600 mb-8 text-center font-logo md:py-16">
+        Available Plant Tips
+      </h1>
 
-      {/* Filter */}
-      <div className="mb-8 text-center">
-        <label className="mr-3 font-medium text-gray-700 text-base sm:text-lg">Filter by Difficulty:</label>
-        <select
-          value={selectedDifficulty}
-          onChange={(e) => setSelectedDifficulty(e.target.value)}
-          className="bg-white border border-green-300 text-green-700 font-medium px-3 py-2 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400"
-        >
-          <option value="All">All</option>
-          <option value="Easy">Easy</option>
-          <option value="Medium">Medium</option>
-          <option value="Hard">Hard</option>
-        </select>
-      </div>
-
-      {/* TABLE: For md and up */}
-      <div className="hidden md:block overflow-x-auto shadow-lg rounded-xl backdrop-blur-md bg-white/60 border border-gray-200">
-        <table className="min-w-full divide-y divide-gray-200 text-sm">
-          <thead className="bg-green-200/60 text-green-900 font-read text-md tracking-wider">
-            <tr>
-              <th className="px-6 py-4 text-left">Image</th>
-              <th className="px-6 py-4 text-left">Title</th>
-              <th className="px-6 py-4 text-left">Category</th>
-              <th className="px-6 py-4 text-left">Difficulty</th>
-              <th className="px-6 py-4 text-center">Action</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white/50 divide-y divide-gray-100">
-            {filteredTips.map((tip) => (
-              <tr
-                key={tip._id}
-                className="hover:bg-green-50 transition duration-300 ease-in-out"
-              >
-                <td className="px-6 py-4">
-                  <div className="w-14 h-14 rounded-md overflow-hidden shadow-md ring-1 ring-green-300/30">
-                    <img
-                      src={tip.tips_image}
-                      alt={tip.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </td>
-                <td className="px-6 py-4 font-medium text-gray-800 text-lg">{tip.title}</td>
-                <td className="px-6 py-4 text-gray-600 font-read text-lg">{tip.category}</td>
-                <td className="px-6 py-4 text-gray-600 font-read text-lg">{tip.difficulty_level}</td>
-                <td className="px-6 py-4 text-center">
-                  <NavLink
-                    to={`/auth/tipsDetails/${tip._id}`}
-                    className="inline-flex items-center justify-center text-green-600 hover:text-green-800 hover:scale-110 transition-transform duration-200"
-                    title="See More"
-                  >
-                    <FaEye className="text-xl" />
-                  </NavLink>
-                </td>
-              </tr>
-            ))}
-            {filteredTips.length === 0 && (
-              <tr>
-                <td colSpan="5" className="text-center py-6 text-gray-500 italic">
-                  No tips found for this difficulty level.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      {/* CARDS: For mobile */}
-      <div className="md:hidden grid grid-cols-1 gap-4 mt-6">
-        {filteredTips.map((tip) => (
-          <div key={tip._id} className="bg-white/80 border border-green-200 rounded-xl p-4 shadow-md">
-            <div className="flex items-center gap-4 mb-3">
-              <img
-                src={tip.tips_image}
-                alt={tip.title}
-                className="w-16 h-16 object-cover rounded-md shadow"
-              />
-              <div>
-                <h2 className="text-lg font-semibold text-gray-800">{tip.title}</h2>
-                <p className="text-sm text-gray-600">{tip.category} · {tip.difficulty_level}</p>
+      <div className="flex flex-col md:flex-row gap-8">
+        {/* Left Sidebar Filters */}
+        <aside className="md:w-1/4 space-y-6 sticky top-24 self-start">
+          {/* Search by Title */}
+          <div>
+            <label className="block mb-2 font-semibold text-gray-700">
+              <div className="flex items-center gap-2">
+                <FaSearch className="text-green-600" />
+                Search by Title
               </div>
-            </div>
-            <div className="text-right">
-              <NavLink
-                to={`/auth/tipsDetails/${tip._id}`}
-                className="inline-flex items-center text-green-600 hover:text-green-800 font-medium text-sm"
-              >
-                <FaEye className="mr-1" /> View
-              </NavLink>
-            </div>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter tip title..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-3 py-2 rounded border border-green-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+            />
           </div>
-        ))}
-        {filteredTips.length === 0 && (
-          <p className="text-center text-gray-500 italic">No tips found for this difficulty level.</p>
-        )}
+
+          {/* Filter by Difficulty */}
+          <div>
+            <label className="block mb-2 font-semibold text-gray-700">
+              Filter by Difficulty
+            </label>
+            <select
+              value={selectedDifficulty}
+              onChange={(e) => setSelectedDifficulty(e.target.value)}
+              className="w-full px-3 py-2 rounded border border-green-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+            >
+              <option value="All">All</option>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+          </div>
+
+          {/* Filter by Category */}
+          <div>
+            <label className="block mb-2 font-semibold text-gray-700">
+              Filter by Category
+            </label>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="w-full px-3 py-2 rounded border border-green-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+            >
+              <option value="All">All</option>
+              <option value="Composting">Composting</option>
+              <option value="Plant Care">Plant Care</option>
+              <option value="Vertical Gardening">Vertical Gardening</option>
+              <option value="Indoor Gardening">Indoor Gardening</option>
+            </select>
+          </div>
+        </aside>
+
+        {/* Right: Tips Cards */}
+        <main className="md:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {filteredTips.length > 0 ? (
+            filteredTips.map((tip) => (
+              <div
+                key={tip._id}
+                className="bg-white rounded-xl shadow-md border border-green-200 p-4 flex flex-col"
+              >
+                <div className="w-full h-36 rounded-md overflow-hidden shadow-sm mb-3">
+                  <img
+                    src={tip.tips_image}
+                    alt={tip.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h3 className="text-lg font-semibold text-green-800 mb-1">
+                  {tip.title}
+                </h3>
+                <p className="text-sm text-gray-600 mb-2">
+                  {tip.category} · {tip.difficulty_level}
+                </p>
+                <NavLink
+                  to={`/auth/tipsDetails/${tip._id}`}
+                  className="mt-auto inline-flex items-center justify-center text-green-600 hover:text-green-800 font-medium"
+                >
+                  <FaEye className="mr-1" /> View Details
+                </NavLink>
+              </div>
+            ))
+          ) : (
+            <p className="col-span-full text-center text-gray-500 italic">
+              No tips found.
+            </p>
+          )}
+        </main>
       </div>
     </div>
   );
