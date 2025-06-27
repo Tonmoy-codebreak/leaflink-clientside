@@ -43,7 +43,7 @@ const Navbar = () => {
   const NavOptions = (
     <>
       <li><NavLink to={"/"}>Home</NavLink></li>
-      <li><NavLink to={"/explore"}>Contributors</NavLink></li>
+      <li><NavLink to={"/aboutus"}>About Us</NavLink></li>
       <li><NavLink to={"/browsetips"}>Browse Tips</NavLink></li>
       {user && (
         <>
@@ -55,7 +55,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="primary-bg sticky top-0 z-50 shadow-md w-full">
+    <div className="primary-bg sticky top-0 z-50 shadow-md w-full ">
       <div className="navbar w-11/12 mx-auto text-white">
         {/* Navbar Start */}
         <div className="navbar-start">

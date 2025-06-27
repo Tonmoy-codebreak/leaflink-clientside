@@ -33,7 +33,7 @@ const MyTipsPage = () => {
         });
 
         if (res.ok) {
-          setTips(tips.filter((tip) => tip._id !== id));
+          setTips((prev) => prev.filter((tip) => tip._id !== id));
           Swal.fire("Deleted!", "Your tip has been deleted.", "success");
         } else {
           Swal.fire("Failed", "Could not delete the tip.", "error");
@@ -43,93 +43,71 @@ const MyTipsPage = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto py-20 px-4 mb-72">
-      <h1 className="text-4xl md:text-5xl font-logo mt-10 md:mt-20 text-center mb-10 text-green-800">
+    <div className="max-w-7xl mx-auto py-20 px-4">
+      <h1 className="text-3xl sm:text-5xl font-logo text-center text-green-800 mb-12">
         My Gardening Tips
       </h1>
 
       {tips.length === 0 ? (
-        <p className="text-center text-base md:text-lg font-read text-gray-600">
+        <p className="text-center text-gray-600 font-read text-lg">
           You haven’t shared any tips yet.
         </p>
       ) : (
-        <>
-          {/* Table view (for md and up) */}
-          <div className="hidden md:block overflow-x-auto">
-            <table className="min-w-full text-sm table-auto border-collapse bg-white/5 text-white">
-              <thead >
-                <tr className="bg-lime-200 text-gray-900 font-semibold">
-                  <th className="px-4 py-3 text-left">Title</th>
-                  <th className="px-4 py-3 text-left">Plant</th>
-                  <th className="px-4 py-3 text-left">Difficulty</th>
-                  <th className="px-4 py-3 text-left">Visibility</th>
-                  <th className="px-4 py-3 text-left">Actions</th>
+        <div className="overflow-x-auto rounded-xl border border-green-200">
+          <table className="min-w-full divide-y divide-green-100 text-sm text-left">
+            <thead className="bg-green-100 text-green-900 font-semibold text-sm">
+              <tr>
+                <th className="px-4 py-3">Image</th>
+                <th className="px-4 py-3">Title</th>
+                <th className="px-4 py-3">Plant</th>
+                <th className="px-4 py-3">Difficulty</th>
+                <th className="px-4 py-3">Visibility</th>
+                <th className="px-4 py-3 text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 bg-white">
+              {tips.map((tip) => (
+                <tr key={tip._id} className="hover:bg-green-50">
+                  <td className="px-4 py-3">
+                    <img
+                      src={tip.image}
+                      alt={tip.title}
+                      className="w-16 h-16 rounded object-cover border"
+                    />
+                  </td>
+                  <td className="px-4 py-3 font-medium text-green-900">
+                    {tip.title}
+                  </td>
+                  <td className="px-4 py-3 text-gray-700">{tip.plant_type}</td>
+                  <td className="px-4 py-3 text-gray-700">{tip.difficulty_level}</td>
+                  <td className="px-4 py-3 text-gray-700">{tip.availability}</td>
+                  <td className="px-4 py-3 text-center">
+                    <div className="flex justify-center gap-2 flex-wrap">
+                      <Link
+                        to={`/auth/tipsDetails/${tip._id}`}
+                        className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs"
+                      >
+                        View
+                      </Link>
+                      <Link
+                        to={`/auth/updatetip/${tip._id}`}
+                        className="px-3 py-1 bg-yellow-400 text-black rounded hover:bg-yellow-500 text-xs"
+                      >
+                        Update
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(tip._id)}
+                        className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-xs"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="divide-y text-black divide-white/10">
-                {tips.map((tip) => (
-                  <tr key={tip._id} className="hover:bg-white/10">
-                    <td className="px-4 py-3">{tip.title}</td>
-                    <td className="px-4 py-3">{tip.plant_type}</td>
-                    <td className="px-4 py-3">{tip.difficulty_level}</td>
-                    <td className="px-4 py-3">{tip.availability}</td>
-                    <td className="px-4 py-3">
-                      <div className="flex gap-2">
-                        <Link
-                          to={`/auth/updatetip/${tip._id}`}
-                          className="btn btn-xs bg-yellow-400 text-black hover:bg-yellow-500"
-                        >
-                          Update
-                        </Link>
-                        <button
-                          onClick={() => handleDelete(tip._id)}
-                          className="btn btn-xs bg-red-500 text-white hover:bg-red-600"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Card view (for mobile) */}
-          <div className="md:hidden text-black space-y-4">
-            {tips.map((tip) => (
-              <div
-                key={tip._id}
-                className="bg-white/10 border border-white/20 p-4 rounded-xl shadow font-read"
-              >
-                <h2 className="text-lg font-semibold mb-1">{tip.title}</h2>
-                <p>
-                  <span className="font-medium">Plant:</span> {tip.plant_type}
-                </p>
-                <p>
-                  <span className="font-medium">Difficulty:</span> {tip.difficulty_level}
-                </p>
-                <p>
-                  <span className="font-medium">Visibility:</span> {tip.availability}
-                </p>
-                <div className="mt-3 flex gap-2">
-                  <Link
-                    to={`/auth/updatetip/${tip._id}`}
-                    className="btn btn-sm bg-yellow-400 text-black hover:bg-yellow-500"
-                  >
-                    Update
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(tip._id)}
-                    className="btn btn-sm bg-red-500 text-white hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

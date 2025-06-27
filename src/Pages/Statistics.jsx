@@ -85,35 +85,40 @@ const Statistics = () => {
       {/* Chart + User + MyTips Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
         {/* Pie Chart + Breakdown */}
-        <div className="col-span-2 bg-white p-6 rounded-xl shadow">
+        <div className="col-span-1 lg:col-span-2 bg-white p-6 rounded-xl shadow overflow-x-auto">
           <h2 className="text-xl font-semibold text-gray-700 mb-4">
             Tips by Category
           </h2>
           <div className="flex flex-col lg:flex-row gap-6">
-            {/* Pie Chart */}
-            <PieChart width={400} height={300}>
-              <Pie
-                data={categoryStats}
-                cx="50%"
-                cy="50%"
-                outerRadius={100}
-                fill="#8884d8"
-                dataKey="value"
-                label
+            {/* Pie Chart Wrapper for centering on mobile */}
+            <div className="flex justify-center">
+              <PieChart
+                width={Math.min(window.innerWidth * 0.9, 300)}
+                height={300}
               >
-                {categoryStats.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-              <RechartsTooltip />
-              <Legend />
-            </PieChart>
+                <Pie
+                  data={categoryStats}
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={100}
+                  fill="#8884d8"
+                  dataKey="value"
+                  label
+                >
+                  {categoryStats.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
+                </Pie>
+                <RechartsTooltip />
+                <Legend />
+              </PieChart>
+            </div>
 
             {/* Category Breakdown List */}
-            <div className="flex-1 space-y-3 pt-4">
+            <div className="flex-1 space-y-3 pt-4 min-w-[200px]">
               <h3 className="text-md font-semibold text-gray-700 mb-1">
                 Breakdown
               </h3>
@@ -165,9 +170,7 @@ const Statistics = () => {
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
               My Shared Tips
             </h3>
-            <p className="text-2xl font-bold text-green-600 mb-4">
-              {myTipsCount}
-            </p>
+            <p className="text-2xl font-bold text-green-600 mb-4">{myTipsCount}</p>
             <Link to="mytips">
               <button className="bg-green-500 hover:bg-green-600 text-white text-sm font-medium px-5 py-2 rounded-full shadow">
                 View My Tips

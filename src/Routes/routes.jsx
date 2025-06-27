@@ -14,6 +14,8 @@ import UpdateTip from "../Pages/UpdateTip";
 import UserEntryLayout from "../LayOuts/UserEntryLayout";
 import DashBoardLayout from "../LayOuts/DashBoardLayout";
 import Statistics from "../Pages/Statistics";
+import AllTips from "../Pages/DashBoard Pages/AllTips";
+import AboutUs from "../Pages/AboutUs";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,10 @@ const router = createBrowserRouter([
         path: "/explore",
         loader: () => fetch("https://leaflink-app-server.vercel.app/tip-users"),
         element: <ExplorePage />,
+      },
+      {
+        path: "/aboutus",
+        element: <AboutUs></AboutUs>
       },
       {
         path: "/browsetips",
@@ -85,7 +91,7 @@ const router = createBrowserRouter([
             path: "alltips",
             loader: () =>
               fetch("https://leaflink-app-server.vercel.app/publictips"),
-            element: <BrowseTips />,
+            element: <AllTips></AllTips>,
           },
 
           {

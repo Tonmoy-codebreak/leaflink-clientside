@@ -18,74 +18,92 @@ const ShareTips = () => {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch("https://leaflink-app-server.vercel.app/alltips", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://leaflink-app-server.vercel.app/alltips",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       const result = await response.json();
       if (response.ok) {
         Swal.fire({
           title: "Tip Added",
           icon: "success",
+          timer: 1800,
+          showConfirmButton: false,
         });
         form.reset();
       } else {
-        alert("Failed to submit tip: " + result.message);
+        Swal.fire({
+          title: "Error",
+          text: result.message || "Failed to submit tip",
+          icon: "error",
+        });
       }
     } catch (error) {
       console.error("Error submitting tip:", error);
-      alert("An error occurred while submitting the tip.");
+      Swal.fire({
+        title: "Error",
+        text: "An error occurred while submitting the tip.",
+        icon: "error",
+      });
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br py-20 px-4">
-      <div className="max-w-4xl mx-auto bg-white/70 backdrop-blur-xl rounded-2xl shadow-2xl border border-green-200 p-8 md:p-12 space-y-8">
-        <h1 className="text-4xl md:text-5xl text-center font-bold text-green-700 font-logo mb-6">
-          <span className="flex items-center justify-center gap-2">
-            <ImLeaf />
-            Share Your Gardening Tip
-          </span>
+    <div className="min-h-screen   py-16 px-2 sm:px-4 md:px-6">
+      <div className="max-w-3xl mx-auto bg-white/90 backdrop-blur-sm rounded-xl  border border-gray-100 p-6 sm:p-8 md:p-10 space-y-8">
+        <h1 className="text-3xl sm:text-4xl text-center font-bold text-green-700 font-logo mb-6 flex items-center justify-center gap-2">
+          <ImLeaf className="text-2xl sm:text-3xl" />
+          Share Your Gardening Tip
         </h1>
 
         <form
           onSubmit={handleSubmit}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
+          noValidate
         >
           {/* Title */}
-          <div className="col-span-1 md:col-span-2">
-            <label className="label">Title</label>
+          <div className="md:col-span-2">
+            <label className="block mb-1 text-green-800 font-semibold text-sm sm:text-base">
+              Title
+            </label>
             <input
               type="text"
               name="title"
               placeholder="e.g., How I Grow Tomatoes Indoors"
-              className="input input-bordered w-full"
+              className="w-full rounded-md border border-green-300 px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-500"
               required
             />
           </div>
 
           {/* Plant Type */}
           <div>
-            <label className="label">Plant Type / Topic</label>
+            <label className="block mb-1 text-green-800 font-semibold text-sm sm:text-base">
+              Plant Type / Topic
+            </label>
             <input
               type="text"
               name="plant_type"
               placeholder="Tomato, Herbs, etc."
-              className="input input-bordered w-full"
+              className="w-full rounded-md border border-green-300 px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-500"
               required
             />
           </div>
 
           {/* Difficulty Level */}
           <div>
-            <label className="label">Difficulty Level</label>
+            <label className="block mb-1 text-green-800 font-semibold text-sm sm:text-base">
+              Difficulty Level
+            </label>
             <select
               name="difficulty_level"
-              className="select select-bordered w-full"
+              className="w-full rounded-md border border-green-300 px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-500"
               defaultValue=""
               required
             >
@@ -100,10 +118,12 @@ const ShareTips = () => {
 
           {/* Category */}
           <div>
-            <label className="label">Category</label>
+            <label className="block mb-1 text-green-800 font-semibold text-sm sm:text-base">
+              Category
+            </label>
             <select
               name="category"
-              className="select select-bordered w-full"
+              className="w-full rounded-md border border-green-300 px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-500"
               defaultValue=""
               required
             >
@@ -119,10 +139,12 @@ const ShareTips = () => {
 
           {/* Availability */}
           <div>
-            <label className="label">Availability</label>
+            <label className="block mb-1 text-green-800 font-semibold text-sm sm:text-base">
+              Availability
+            </label>
             <select
               name="availability"
-              className="select select-bordered w-full"
+              className="w-full rounded-md border border-green-300 px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-500"
               defaultValue=""
               required
             >
@@ -134,72 +156,78 @@ const ShareTips = () => {
             </select>
           </div>
 
-          {/* Tips_Image */}
-          <div className="col-span-1 md:col-span-2">
-            <label className="label">Image URL</label>
+          {/* Image URL */}
+          <div className="md:col-span-2">
+            <label className="block mb-1 text-green-800 font-semibold text-sm sm:text-base">
+              Image URL
+            </label>
             <input
-              type="text"
+              type="url"
               name="tips_image"
               placeholder="https://image.url"
-              className="input input-bordered w-full"
+              className="w-full rounded-md border border-green-300 px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-500"
               required
             />
           </div>
 
           {/* Description */}
-          <div className="col-span-1 md:col-span-2">
-            <label className="label">Description</label>
+          <div className="md:col-span-2">
+            <label className="block mb-1 text-green-800 font-semibold text-sm sm:text-base">
+              Description
+            </label>
             <textarea
               name="description"
               rows="5"
-              className="textarea textarea-bordered w-full"
               placeholder="Write your tip in detail..."
+              className="w-full rounded-md border border-green-300 px-3 py-2 text-sm sm:text-base resize-none focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-500"
               required
             ></textarea>
           </div>
 
-          {/* Read-only user info */}
+          {/* User Name (read-only) */}
           <div>
-            <label className="label">Your Name</label>
+            <label className="block mb-1 text-green-800 font-semibold text-sm sm:text-base">
+              Your Name
+            </label>
             <input
               type="text"
               name="name"
               value={user?.displayName || "Anonymous"}
               readOnly
-              className="input input-bordered w-full bg-gray-100 text-gray-500"
+              className="w-full rounded-md border border-green-300 px-3 py-2 text-sm sm:text-base bg-gray-100 text-gray-600 cursor-not-allowed"
             />
           </div>
 
+          {/* User Email (read-only) */}
           <div>
-            <label className="label">Your Email</label>
+            <label className="block mb-1 text-green-800 font-semibold text-sm sm:text-base">
+              Your Email
+            </label>
             <input
               type="email"
               name="email"
               value={user?.email || "No Email"}
               readOnly
-              className="input input-bordered w-full bg-gray-100 text-gray-500"
+              className="w-full rounded-md border border-green-300 px-3 py-2 text-sm sm:text-base bg-gray-100 text-gray-600 cursor-not-allowed"
             />
           </div>
 
-          <div className="hidden">
-            <label className="label">Your Image URL</label>
-            <input
-              type="text"
-              name="image"
-              value={user?.photoURL || "No Photo"}
-              readOnly
-              className="input input-bordered w-full bg-gray-100 text-gray-500"
-            />
-          </div>
+          {/* Hidden user image URL */}
+          <input
+            type="hidden"
+            name="image"
+            value={user?.photoURL || ""}
+            readOnly
+          />
 
-          {/* Submit */}
-          <div className="col-span-1 md:col-span-2 text-center mt-4">
+          {/* Submit button */}
+          <div className="md:col-span-2 text-center mt-4">
             <button
               type="submit"
-              className="btn btn-wide text-white primary-bg flex items-center gap-2"
+              className="inline-flex items-center gap-2 justify-center rounded-full bg-green-600 px-8 py-2 text-white text-base font-semibold shadow-md hover:bg-green-700 transition"
             >
               <FiSend size={18} />
-              <p>Submit Tip</p>
+              Submit Tip
             </button>
           </div>
         </form>
