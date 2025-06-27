@@ -3,8 +3,15 @@ import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-green-800 via-green-900 to-green-800 text-white font-read mt-16">
+    <footer className="bg-gradient-to-r from-green-800 via-green-900 to-green-800 text-white font-read mt-16 lg:py-16">
       <div className="max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row justify-between gap-8 text-center md:text-left">
+
+        {/* Logo and Site Name */}
+        <div className="flex-1 flex items-center justify-center md:justify-start gap-3">
+          <img src="https://i.ibb.co/Kc14zZVk/Leaf-Link-PNG.png" alt="LeafLink Logo" className="h-10" />
+          <h1 className="text-2xl font-logo">LeafLink</h1>
+        </div>
+
         {/* Contact Info */}
         <div className="flex-1 space-y-2">
           <h3 className="text-xl font-semibold font-logo mb-3">Contact Info</h3>
@@ -82,10 +89,7 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Text */}
-      <div className="border-t border-green-700 text-center py-4 text-sm opacity-75">
-        © {new Date().getFullYear()} LeafLink — All rights reserved.
-      </div>
+     
     </footer>
   );
 };
