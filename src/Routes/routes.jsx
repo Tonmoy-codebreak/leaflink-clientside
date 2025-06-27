@@ -12,36 +12,32 @@ import BrowseTips from "../Pages/BrowseTips";
 import TipsDetailPage from "../Pages/TipsDetailPage";
 import UpdateTip from "../Pages/UpdateTip";
 import UserEntryLayout from "../LayOuts/UserEntryLayout";
+import DashBoardLayout from "../LayOuts/DashBoardLayout";
+import Statistics from "../Pages/Statistics";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout></MainLayout>,
-    errorElement: <ErrorPage></ErrorPage>,
+    element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
-      { path: "/",
-        loader: ()=> fetch('https://leaflink-app-server.vercel.app/activeusers'),
-        element: <HomePage></HomePage> },
+      {
+        path: "/",
+        loader: () =>
+          fetch("https://leaflink-app-server.vercel.app/activeusers"),
+        element: <HomePage />,
+      },
       {
         path: "/explore",
-       loader: () => fetch('https://leaflink-app-server.vercel.app/tip-users'),
-        element: <ExplorePage></ExplorePage>,
+        loader: () => fetch("https://leaflink-app-server.vercel.app/tip-users"),
+        element: <ExplorePage />,
       },
-      // {
-      //   path: "/login",
-      //   element: <LoginPage></LoginPage>,
-      // },
-      // {
-      //   path: "/register",
-      //   element: <SignUpPage></SignUpPage>,
-      // },
       {
         path: "/browsetips",
-        loader: ()=> fetch('https://leaflink-app-server.vercel.app/publictips'),
-        element: <BrowseTips></BrowseTips>,
+        loader: () =>
+          fetch("https://leaflink-app-server.vercel.app/publictips"),
+        element: <BrowseTips />,
       },
-
-      //   Private Routs
       {
         path: "/auth/sharetips",
         element: (
@@ -60,40 +56,69 @@ const router = createBrowserRouter([
       },
       {
         path: "/auth/tipsDetails/:id",
-        errorElement: <ErrorPage></ErrorPage>,
         element: (
           <PrivateRoute>
-            <TipsDetailPage/>
+            <TipsDetailPage />
           </PrivateRoute>
         ),
       },
       {
         path: "/auth/updatetip/:id",
-        errorElement: <ErrorPage></ErrorPage>,
         element: (
           <PrivateRoute>
-            <UpdateTip></UpdateTip>
+            <UpdateTip />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/auth/dashboard",
+        element: (
+          <PrivateRoute>
+            <DashBoardLayout />
+          </PrivateRoute>
+        ),
+        children: [
+          { index: true, element: <Statistics /> },
+
+          // Use BrowseTips with loader for "alltips"
+          {
+            path: "alltips",
+            loader: () =>
+              fetch("https://leaflink-app-server.vercel.app/publictips"),
+            element: <BrowseTips />,
+          },
+
+          {
+            path: "mytips",
+            element: <MyTipsPage />,
+          },
+
+          // Use ShareTips for "addtips"
+          {
+            path: "addtips",
+            element: <ShareTips />,
+          },
+
+          // Use ExplorePage with loader for "contributors"
+          {
+            path: "contributors",
+            loader: () =>
+              fetch("https://leaflink-app-server.vercel.app/tip-users"),
+            element: <ExplorePage />,
+          },
+        ],
       },
     ],
   },
   {
     path: "/user",
-    element: <UserEntryLayout></UserEntryLayout>,
-    errorElement: <ErrorPage></ErrorPage>,
+    element: <UserEntryLayout />,
+    errorElement: <ErrorPage />,
     children: [
-      {
-        path: "/user/login",
-        element: <LoginPage></LoginPage>,
-      },
-      {
-        path: "/user/register",
-        element: <SignUpPage></SignUpPage>,
-      },
-    ]
-  }
-   
+      { path: "login", element: <LoginPage /> },
+      { path: "register", element: <SignUpPage /> },
+    ],
+  },
 ]);
 
 export default router;

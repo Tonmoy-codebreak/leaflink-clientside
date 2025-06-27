@@ -63,7 +63,7 @@ const ExplorePage = () => {
   return (
     <div className="w-11/12 max-w-7xl mx-auto py-20 font-read">
       <h1 className="text-center text-4xl md:text-5xl font-logo text-green-700 mb-10">
-        Explore Gardeners
+        Explore Tip Contributors
       </h1>
 
       <div className="relative max-w-md mx-auto mb-14">

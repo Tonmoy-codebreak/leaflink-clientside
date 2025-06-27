@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
+import { RiDashboardFill } from "react-icons/ri";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
-import { Tooltip } from 'react-tooltip';
+import { Tooltip } from "react-tooltip";
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -42,7 +43,7 @@ const Navbar = () => {
   const NavOptions = (
     <>
       <li><NavLink to={"/"}>Home</NavLink></li>
-      <li><NavLink to={"/explore"}>Explore Gardeners</NavLink></li>
+      <li><NavLink to={"/explore"}>Contributors</NavLink></li>
       <li><NavLink to={"/browsetips"}>Browse Tips</NavLink></li>
       {user && (
         <>
@@ -54,7 +55,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="primary-bg sticky top-0 z-50 shadow-md w-full"  style={{ position: 'sticky' }}>
+    <div className="primary-bg sticky top-0 z-50 shadow-md w-full">
       <div className="navbar w-11/12 mx-auto text-white">
         {/* Navbar Start */}
         <div className="navbar-start">
@@ -102,46 +103,58 @@ const Navbar = () => {
         </div>
 
         {/* Navbar End */}
-        <div className="navbar-end">
+        <div className="navbar-end gap-3">
           {user ? (
-            <div className="dropdown dropdown-end">
-              <div tabIndex={0} role="button" className="rounded-full">
-                <div className="relative w-10 h-10">
-                  {!imageLoaded && (
-                    <span className="absolute inset-0 flex items-center justify-center">
-                      <span className="loading loading-spinner loading-xs"></span>
-                    </span>
-                  )}
-                  <div
-                    data-tooltip-id="avatarName"
-                    data-tooltip-content={user.displayName}
-                    data-tooltip-place="left"
-                  >
-                    <img
-                      src={imageSrc}
-                      alt="User"
-                      className={`w-10 h-10 rounded-full object-cover transition-opacity duration-300 ${
-                        imageLoaded ? "opacity-100" : "opacity-0"
-                      }`}
-                    />
-                    <Tooltip id="avatarName" />
+            <>
+              {/* Dashboard Icon */}
+              <Link
+                to="/auth/dashboard"
+                className="text-white hover:text-green-300 transition"
+                title="Dashboard"
+              >
+                <RiDashboardFill className="text-4xl" />
+              </Link>
+
+              {/* Avatar Dropdown */}
+              <div className="dropdown dropdown-end">
+                <div tabIndex={0} role="button" className="rounded-full">
+                  <div className="relative w-10 h-10">
+                    {!imageLoaded && (
+                      <span className="absolute inset-0 flex items-center justify-center">
+                        <span className="loading loading-spinner loading-xs"></span>
+                      </span>
+                    )}
+                    <div
+                      data-tooltip-id="avatarName"
+                      data-tooltip-content={user.displayName}
+                      data-tooltip-place="left"
+                    >
+                      <img
+                        src={imageSrc}
+                        alt="User"
+                        className={`w-10 h-10 rounded-full object-cover transition-opacity duration-300 ${
+                          imageLoaded ? "opacity-100" : "opacity-0"
+                        }`}
+                      />
+                      <Tooltip id="avatarName" />
+                    </div>
                   </div>
                 </div>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[999] menu p-2 shadow bg-base-100 rounded-box w-32 mt-2 text-black"
+                >
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className="text-white bg-red-500 hover:bg-red-600 font-medium rounded-md text-sm px-4 py-2 text-center"
+                    >
+                      Log Out
+                    </button>
+                  </li>
+                </ul>
               </div>
-              <ul
-                tabIndex={0}
-                className="dropdown-content z-[999] menu p-2 shadow bg-base-100 rounded-box w-32 mt-2 text-black"
-              >
-                <li>
-                  <button
-                    onClick={handleLogout}
-                    className="text-white bg-red-500 hover:bg-red-600 font-medium rounded-md text-sm px-4 py-2 text-center"
-                  >
-                    Log Out
-                  </button>
-                </li>
-              </ul>
-            </div>
+            </>
           ) : (
             <Link to="/user/login">
               <button className="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5">
