@@ -1,5 +1,10 @@
 # 🌿 Project Name : LeafLink
 
+
+## 📖 Project Description
+LeafLink is a vibrant web platform where users can share gardening tips, explore a network of fellow growers, and engage with plant-related events. It features public and private tip sharing, a dynamic gardener exploration page, and an event slider to showcase community happenings. Users can manage their own posts updating, deleting, or toggling privacy and connect with others through insightful content and shared interests. Whether you're seeking advice or showcasing your green thumb, LeafLink brings the gardening world closer, one tip at a time.
+
+
 #🔗 Live Site URL: https://leaf-link-app.web.app/
 
 ---
@@ -13,9 +18,36 @@
 - 🔐 **Authentication & User Experience**: Smooth login/registration system with Google Sign-In and password reset via Firebase.
 
 
+## Technology Stack
+
+- **React**  
+- **Vite**  
+- **Tailwind CSS** (+ DaisyUI)  
+- **Firebase**  
+- **React Router**  
+- **Framer Motion**  
+- **Recharts** (for charts)  
+- **React Slick** (carousel)  
+- **SweetAlert2**  
+- **ESLint**
 
 
 
-## 📖 Project Description
-LeafLink is a vibrant web platform where users can share gardening tips, explore a network of fellow growers, and engage with plant-related events. It features public and private tip sharing, a dynamic gardener exploration page, and an event slider to showcase community happenings. Users can manage their own posts updating, deleting, or toggling privacy and connect with others through insightful content and shared interests. Whether you're seeking advice or showcasing your green thumb, LeafLink brings the gardening world closer, one tip at a time.
+## Dependencies
+
+- @lottiefiles/lottie-player
+- @tailwindcss/vite
+- firebase
+- framer-motion
+- react
+- react-dom
+- react-icons
+- react-router
+- react-simple-typewriter
+- react-slick
+- react-tooltip
+- recharts
+- slick-carousel
+- sweetalert2
+- tailwindcss
 
