@@ -65,19 +65,19 @@ LeafLink is a vibrant web platform where users can share gardening tips, explore
 In the project root, create a .env file and add your Firebase config variables as below:
 
 
-VITE_apiKey=your_api_key
-VITE_authDomain=your_auth_domain
-VITE_projectId=your_project_id
-VITE_storageBucket=your_storage_bucket
-VITE_messagingSenderId=your_messaging_sender_id
-VITE_appId=your_app_id
+-VITE_apiKey=your_api_key
+-VITE_authDomain=your_auth_domain
+-VITE_projectId=your_project_id
+-VITE_storageBucket=your_storage_bucket
+-VITE_messagingSenderId=your_messaging_sender_id
+-VITE_appId=your_app_id
 
 3. **Install dependencies**
 
-npm install
+-npm install
 
 4. **Start the development server**
 
-npm run dev
-Open the app in your browser
-Visit http://localhost:5173 (or the URL shown in the terminal) to see the app running locally.
+-npm run dev
+-Open the app in your browser
+-Visit http://localhost:5173 (or the URL shown in the terminal) to see the app running locally.
