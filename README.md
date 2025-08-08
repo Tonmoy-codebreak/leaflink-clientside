@@ -53,10 +53,13 @@ LeafLink is a vibrant web platform where users can share gardening tips, explore
 
 
 ##How to Run This Project Locally
-1)Clone the repository
+## How to Run This Project Locally
 
-git clone https://github.com/Tonmoy-codebreak/leaflink-clientside.git
-cd leaflink-clientside
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/Tonmoy-codebreak/leaflink-clientside.git
+   cd leaflink-clientside
 
 2)Create a .env file
 In the project root, create a .env file and add your Firebase config variables as below:
